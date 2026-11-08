@@ -1,0 +1,10 @@
+.projectmem/events.jsonl
+.projectmem/watch.pid
+.projectmem/watch.log
+.projectmem/structure.json
+.agent/
+node_modules/
+.expo/
+dist/
+web-build/
+.env*
