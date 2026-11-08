@@ -224,3 +224,4 @@ const styles = StyleSheet.create({
     fontFamily: theme.typography.fontBody,
   },
 });
+

@@ -58,3 +58,4 @@ export const theme = {
 
 export type ThemeMode = 'light' | 'dark';
 export type AppTheme = typeof theme.light;
+

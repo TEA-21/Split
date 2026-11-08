@@ -308,3 +308,4 @@ const styles = StyleSheet.create({
     fontFamily: theme.typography.fontBodyMedium,
   },
 });
+

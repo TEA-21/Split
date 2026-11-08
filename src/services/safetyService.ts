@@ -37,3 +37,4 @@ export async function saveReportLocally(
 
   return newReport;
 }
+
