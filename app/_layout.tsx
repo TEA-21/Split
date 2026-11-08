@@ -16,6 +16,7 @@ import {
   Inter_500Medium,
 } from '@expo-google-fonts/inter';
 import { theme } from '../src/theme/tokens';
+import { MatchCelebrationModal } from '../src/components/match/MatchCelebrationModal';
 
 // Prevent splash screen from auto-hiding while fonts load
 SplashScreen.preventAutoHideAsync();
@@ -64,6 +65,8 @@ export default function RootLayout() {
             }}
           />
         </Stack>
+        {/* Global Match Celebration Modal */}
+        <MatchCelebrationModal />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
