@@ -5,6 +5,8 @@ import { SlidersHorizontal, MapPin } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
 import { SplitLogo } from '../../src/components/brand/SplitLogo';
 import { CardDeck } from '../../src/components/swipe/CardDeck';
+import { LocationPickerModal } from '../../src/components/location/LocationPickerModal';
+import { FilterModal } from '../../src/components/filters/FilterModal';
 import { useAppStore } from '../../src/store/useAppStore';
 import { RoommateProfile } from '../../src/types';
 
@@ -18,7 +20,6 @@ export default function DiscoverScreen() {
     filters,
     setIsFilterModalVisible,
     setIsLocationModalVisible,
-    reportAndBlockUser,
   } = useAppStore();
 
   const [reportingProfile, setReportingProfile] = useState<RoommateProfile | null>(null);
@@ -77,6 +78,12 @@ export default function DiscoverScreen() {
 
       {/* Main Tinder Deck */}
       <CardDeck onOpenReportModal={(profile) => setReportingProfile(profile)} />
+
+      {/* Location Picker Dialog */}
+      <LocationPickerModal />
+
+      {/* Discovery Filters Dialog */}
+      <FilterModal />
     </SafeAreaView>
   );
 }
