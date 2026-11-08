@@ -7,6 +7,7 @@ import { SplitLogo } from '../../src/components/brand/SplitLogo';
 import { CardDeck } from '../../src/components/swipe/CardDeck';
 import { LocationPickerModal } from '../../src/components/location/LocationPickerModal';
 import { FilterModal } from '../../src/components/filters/FilterModal';
+import { ReportUserModal } from '../../src/components/safety/ReportUserModal';
 import { useAppStore } from '../../src/store/useAppStore';
 import { RoommateProfile } from '../../src/types';
 
@@ -84,6 +85,13 @@ export default function DiscoverScreen() {
 
       {/* Discovery Filters Dialog */}
       <FilterModal />
+
+      {/* Safety Report / Block Modal */}
+      <ReportUserModal
+        targetProfile={reportingProfile}
+        visible={reportingProfile !== null}
+        onClose={() => setReportingProfile(null)}
+      />
     </SafeAreaView>
   );
 }
