@@ -1,24 +1,82 @@
-import React from 'react';
-import { View, Text, StyleSheet, useColorScheme } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SlidersHorizontal, MapPin } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
 import { SplitLogo } from '../../src/components/brand/SplitLogo';
+import { CardDeck } from '../../src/components/swipe/CardDeck';
+import { useAppStore } from '../../src/store/useAppStore';
+import { RoommateProfile } from '../../src/types';
 
 export default function DiscoverScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const currentTheme = isDark ? theme.dark : theme.light;
 
+  const {
+    loadFeed,
+    filters,
+    setIsFilterModalVisible,
+    setIsLocationModalVisible,
+    reportAndBlockUser,
+  } = useAppStore();
+
+  const [reportingProfile, setReportingProfile] = useState<RoommateProfile | null>(null);
+
+  useEffect(() => {
+    loadFeed();
+  }, []);
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: currentTheme.background }]} edges={['top']}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: currentTheme.background }]}
+      edges={['top']}
+    >
+      {/* Header bar */}
       <View style={[styles.header, { borderBottomColor: currentTheme.border }]}>
-        <SplitLogo size={26} isDark={isDark} />
+        <SplitLogo size={24} isDark={isDark} />
+
+        <View style={styles.headerControls}>
+          {/* Location button */}
+          <TouchableOpacity
+            style={[
+              styles.locationPill,
+              {
+                backgroundColor: currentTheme.surface,
+                borderColor: currentTheme.border,
+              },
+            ]}
+            onPress={() => setIsLocationModalVisible(true)}
+            activeOpacity={0.7}
+          >
+            <MapPin size={13} color={currentTheme.accent} />
+            <Text
+              style={[styles.locationText, { color: currentTheme.textPrimary }]}
+              numberOfLines={1}
+            >
+              {filters.referenceLocationName.split(',')[0]} • {filters.radiusMiles}mi
+            </Text>
+          </TouchableOpacity>
+
+          {/* Filter button */}
+          <TouchableOpacity
+            style={[
+              styles.filterIconButton,
+              {
+                backgroundColor: currentTheme.surface,
+                borderColor: currentTheme.border,
+              },
+            ]}
+            onPress={() => setIsFilterModalVisible(true)}
+            activeOpacity={0.7}
+          >
+            <SlidersHorizontal size={17} color={currentTheme.textPrimary} strokeWidth={2} />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.content}>
-        <Text style={[styles.title, { color: currentTheme.textPrimary }]}>
-          Discover Roommates
-        </Text>
-      </View>
+
+      {/* Main Tinder Deck */}
+      <CardDeck onOpenReportModal={(profile) => setReportingProfile(profile)} />
     </SafeAreaView>
   );
 }
@@ -28,22 +86,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
+  headerControls: {
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    gap: 8,
   },
-  title: {
-    fontSize: 18,
+  locationPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: theme.radii.pill,
+    borderWidth: 1,
+  },
+  locationText: {
+    fontSize: 12,
     fontWeight: '600',
-    fontFamily: theme.typography.fontHeading,
+    fontFamily: theme.typography.fontBodyMedium,
+    maxWidth: 130,
+  },
+  filterIconButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
