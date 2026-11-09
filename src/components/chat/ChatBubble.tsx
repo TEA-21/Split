@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, useColorScheme } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Check, CheckCheck } from 'lucide-react-native';
 import { ChatMessage } from '../../types';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 interface ChatBubbleProps {
   message: ChatMessage;
@@ -10,9 +11,7 @@ interface ChatBubbleProps {
 }
 
 export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isSender }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const formatTime = (isoString: string) => {
     try {

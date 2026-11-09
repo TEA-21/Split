@@ -57,5 +57,5 @@ export const theme = {
 } as const;
 
 export type ThemeMode = 'light' | 'dark';
-export type AppTheme = typeof theme.light;
+export type AppTheme = typeof theme.light | typeof theme.dark;
 

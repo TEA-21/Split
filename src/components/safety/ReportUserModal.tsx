@@ -7,11 +7,11 @@ import {
   TextInput,
   Switch,
   StyleSheet,
-  useColorScheme,
   Alert,
 } from 'react-native';
 import { X, ShieldAlert, Check } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 import { RoommateProfile } from '../../types';
 import { useAppStore } from '../../store/useAppStore';
 
@@ -26,9 +26,7 @@ export const ReportUserModal: React.FC<ReportUserModalProps> = ({
   visible,
   onClose,
 }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const { reportAndBlockUser } = useAppStore();
 

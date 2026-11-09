@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  useColorScheme,
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
@@ -15,6 +14,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowLeft, CheckCircle, ShieldAlert } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
+import { useAppTheme } from '../../src/theme/useAppTheme';
 import { useAppStore } from '../../src/store/useAppStore';
 import { roommateService } from '../../src/services/roommateService';
 import { ChatBubble } from '../../src/components/chat/ChatBubble';
@@ -24,9 +24,7 @@ import { ChatMessage, MatchItem } from '../../src/types';
 export default function ChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const { currentUser, matches, reportAndBlockUser } = useAppStore();
   const [messages, setMessages] = useState<ChatMessage[]>([]);

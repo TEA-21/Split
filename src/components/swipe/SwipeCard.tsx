@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  useColorScheme,
   Platform,
 } from 'react-native';
 import Animated, {
@@ -20,6 +19,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { CheckCircle, MapPin, Sparkles, Home, User } from 'lucide-react-native';
 import { RoommateProfile, SwipeDirection } from '../../types';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 const { width, height } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 110;
@@ -38,9 +38,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
   onSwipe,
   onPressDetails,
 }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   // Split Photo State (toggle between Roommate photo and Room photo if available)
   const [photoMode, setPhotoMode] = useState<'person' | 'room'>('person');

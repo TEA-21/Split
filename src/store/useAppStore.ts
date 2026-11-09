@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   RoommateProfile,
   RoomListing,
@@ -8,6 +9,8 @@ import {
 } from '../types';
 import { roommateService } from '../services/roommateService';
 import { INITIAL_USER_PROFILE } from '../services/mockData';
+
+export type ThemePreference = 'system' | 'light' | 'dark';
 
 interface AppState {
   currentUser: RoommateProfile;
@@ -19,6 +22,7 @@ interface AppState {
   isLoading: boolean;
   isFilterModalVisible: boolean;
   isLocationModalVisible: boolean;
+  themePreference: ThemePreference;
 
   // Actions
   loadFeed: () => Promise<void>;
@@ -29,6 +33,7 @@ interface AppState {
   setFilters: (newFilters: Partial<SearchFilters>) => void;
   setIsFilterModalVisible: (visible: boolean) => void;
   setIsLocationModalVisible: (visible: boolean) => void;
+  setThemePreference: (pref: ThemePreference) => void;
   updateUserProfile: (profile: Partial<RoommateProfile>) => Promise<void>;
   updateRoom: (room: Partial<RoomListing>) => Promise<void>;
   reportAndBlockUser: (targetId: string, reason: string, details?: string, isBlock?: boolean) => Promise<void>;
@@ -40,6 +45,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   swipedHistory: [],
   matches: [],
   activeMatch: null,
+  themePreference: 'system',
   filters: {
     userMode: 'all',
     budgetMin: 500,
@@ -146,6 +152,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ isLocationModalVisible: visible });
   },
 
+  setThemePreference: (pref: ThemePreference) => {
+    set({ themePreference: pref });
+    AsyncStorage.setItem('@split_theme_pref', pref).catch(() => {});
+  },
+
   updateUserProfile: async (profile: Partial<RoommateProfile>) => {
     try {
       const updated = await roommateService.updateProfile(profile);
@@ -184,4 +195,12 @@ export const useAppStore = create<AppState>((set, get) => ({
     }
   },
 }));
+
+// Hydrate stored theme preference on startup
+AsyncStorage.getItem('@split_theme_pref').then((val) => {
+  if (val === 'light' || val === 'dark' || val === 'system') {
+    useAppStore.setState({ themePreference: val as ThemePreference });
+  }
+}).catch(() => {});
+
 

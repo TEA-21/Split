@@ -16,12 +16,14 @@ import {
   Inter_500Medium,
 } from '@expo-google-fonts/inter';
 import { theme } from '../src/theme/tokens';
+import { useAppTheme } from '../src/theme/useAppTheme';
 import { MatchCelebrationModal } from '../src/components/match/MatchCelebrationModal';
 
 // Prevent splash screen from auto-hiding while fonts load
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { isDark, currentTheme } = useAppTheme();
   const [fontsLoaded, fontError] = useFonts({
     PlusJakartaSans_600SemiBold,
     PlusJakartaSans_700Bold,
@@ -42,11 +44,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
-        <StatusBar style="auto" />
+        <StatusBar style={isDark ? 'light' : 'dark'} />
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: theme.light.background },
+            contentStyle: { backgroundColor: currentTheme.background },
           }}
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

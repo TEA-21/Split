@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SlidersHorizontal, MapPin, RefreshCw } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 import { SplitLogo } from '../brand/SplitLogo';
 
 interface EmptyDeckViewProps {
@@ -15,9 +16,7 @@ export const EmptyDeckView: React.FC<EmptyDeckViewProps> = ({
   onOpenFilters,
   onRefresh,
 }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: currentTheme.surface, borderColor: currentTheme.border }]}>

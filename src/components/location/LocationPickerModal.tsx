@@ -5,19 +5,17 @@ import {
   Modal,
   TouchableOpacity,
   StyleSheet,
-  useColorScheme,
   ActivityIndicator,
 } from 'react-native';
 import { X, Navigation, Check, MapPin } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 import { useAppStore } from '../../store/useAppStore';
 import { LOCATION_PRESETS, getCurrentDeviceLocation } from '../../services/locationService';
 import { Coordinates } from '../../types';
 
 export const LocationPickerModal: React.FC = () => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const {
     filters,

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { RotateCcw, X, Star, Heart, Info } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 interface ActionButtonsProps {
   onRewind: () => void;
@@ -22,9 +23,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   canRewind = true,
   disabled = false,
 }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   return (
     <View style={styles.container}>

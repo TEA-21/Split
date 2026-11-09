@@ -4,11 +4,11 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  useColorScheme,
   Platform,
 } from 'react-native';
 import { ArrowUp } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 interface ChatInputProps {
   onSend: (text: string) => void;
@@ -17,9 +17,7 @@ interface ChatInputProps {
 
 export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled = false }) => {
   const [text, setText] = useState('');
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const handleSend = () => {
     const trimmed = text.trim();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, useColorScheme } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { SwipeCard } from './SwipeCard';
 import { ActionButtons } from './ActionButtons';
 import { EmptyDeckView } from './EmptyDeckView';
@@ -7,15 +7,14 @@ import { ProfileDetailModal } from './ProfileDetailModal';
 import { RoommateProfile, SwipeDirection } from '../../types';
 import { useAppStore } from '../../store/useAppStore';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 interface CardDeckProps {
   onOpenReportModal?: (profile: RoommateProfile) => void;
 }
 
 export const CardDeck: React.FC<CardDeckProps> = ({ onOpenReportModal }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const {
     feed,

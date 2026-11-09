@@ -6,10 +6,10 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  useColorScheme,
 } from 'react-native';
 import { X, ShieldCheck, MapPin, DollarSign, FileCheck, Eye } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 interface SafetyGuidelinesModalProps {
   visible: boolean;
@@ -20,9 +20,7 @@ export const SafetyGuidelinesModal: React.FC<SafetyGuidelinesModalProps> = ({
   visible,
   onClose,
 }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const guidelines = [
     {

@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  useColorScheme,
   Dimensions,
 } from 'react-native';
 import {
@@ -25,6 +24,7 @@ import {
 } from 'lucide-react-native';
 import { RoommateProfile } from '../../types';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 import { useAppStore } from '../../store/useAppStore';
 
 const { width } = Dimensions.get('window');
@@ -42,9 +42,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
   onClose,
   onReport,
 }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
   const currentUser = useAppStore((s) => s.currentUser);
 
   if (!profile) return null;

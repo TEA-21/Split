@@ -7,7 +7,6 @@ import {
   ScrollView,
   Image,
   StyleSheet,
-  useColorScheme,
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -15,6 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
 import { X, Check, Camera, Plus, Trash2 } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
+import { useAppTheme } from '../../src/theme/useAppTheme';
 import { useAppStore } from '../../src/store/useAppStore';
 import { LifestyleSelector } from '../../src/components/profile/LifestyleSelector';
 import { RoomEditor } from '../../src/components/room/RoomEditor';
@@ -22,9 +22,7 @@ import { RoommateProfile, RoomListing } from '../../src/types';
 
 export default function EditProfileScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const { currentUser, updateUserProfile, updateRoom } = useAppStore();
 

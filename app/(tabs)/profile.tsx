@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  useColorScheme,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,16 +17,18 @@ import {
   Home,
   Sliders,
   ChevronRight,
+  Sun,
+  Moon,
+  Smartphone,
 } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
+import { useAppTheme } from '../../src/theme/useAppTheme';
 import { useAppStore } from '../../src/store/useAppStore';
 import { SafetyGuidelinesModal } from '../../src/components/safety/SafetyGuidelinesModal';
 
 export default function ProfileScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme, themePreference, setThemePreference } = useAppTheme();
 
   const { currentUser } = useAppStore();
   const [showSafetyModal, setShowSafetyModal] = useState(false);
@@ -95,6 +96,104 @@ export default function ProfileScreen() {
           <Edit3 size={16} color="#FFFFFF" strokeWidth={2.2} />
           <Text style={styles.editButtonText}>Edit Profile & Room Details</Text>
         </TouchableOpacity>
+
+        {/* Appearance & Dark Mode Settings */}
+        <View style={styles.menuSection}>
+          <Text style={[styles.menuHeading, { color: currentTheme.textMuted }]}>
+            APPEARANCE
+          </Text>
+
+          <View
+            style={[
+              styles.themeSegmentContainer,
+              { backgroundColor: currentTheme.surface, borderColor: currentTheme.border },
+            ]}
+          >
+            <TouchableOpacity
+              style={[
+                styles.themeOption,
+                themePreference === 'system' && {
+                  backgroundColor: currentTheme.surfaceSubtle,
+                  borderColor: currentTheme.accent,
+                },
+              ]}
+              onPress={() => setThemePreference('system')}
+              activeOpacity={0.8}
+            >
+              <Smartphone
+                size={16}
+                color={themePreference === 'system' ? currentTheme.accent : currentTheme.textSecondary}
+              />
+              <Text
+                style={[
+                  styles.themeOptionText,
+                  {
+                    color: themePreference === 'system' ? currentTheme.accent : currentTheme.textSecondary,
+                    fontWeight: themePreference === 'system' ? '700' : '500',
+                  },
+                ]}
+              >
+                System
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.themeOption,
+                themePreference === 'light' && {
+                  backgroundColor: currentTheme.surfaceSubtle,
+                  borderColor: currentTheme.accent,
+                },
+              ]}
+              onPress={() => setThemePreference('light')}
+              activeOpacity={0.8}
+            >
+              <Sun
+                size={16}
+                color={themePreference === 'light' ? currentTheme.accent : currentTheme.textSecondary}
+              />
+              <Text
+                style={[
+                  styles.themeOptionText,
+                  {
+                    color: themePreference === 'light' ? currentTheme.accent : currentTheme.textSecondary,
+                    fontWeight: themePreference === 'light' ? '700' : '500',
+                  },
+                ]}
+              >
+                Light
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.themeOption,
+                themePreference === 'dark' && {
+                  backgroundColor: currentTheme.surfaceSubtle,
+                  borderColor: currentTheme.accent,
+                },
+              ]}
+              onPress={() => setThemePreference('dark')}
+              activeOpacity={0.8}
+            >
+              <Moon
+                size={16}
+                color={themePreference === 'dark' ? currentTheme.accent : currentTheme.textSecondary}
+              />
+              <Text
+                style={[
+                  styles.themeOptionText,
+                  {
+                    color: themePreference === 'dark' ? currentTheme.accent : currentTheme.textSecondary,
+                    fontWeight: themePreference === 'dark' ? '700' : '500',
+                  },
+                ]}
+              >
+                Dark
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
         {/* Profile Settings & Safety Menu */}
         <View style={styles.menuSection}>
@@ -321,5 +420,27 @@ const styles = StyleSheet.create({
   roomCardSub: {
     fontSize: 12,
     fontFamily: theme.typography.fontBody,
+  },
+  themeSegmentContainer: {
+    flexDirection: 'row',
+    borderRadius: theme.radii.control,
+    borderWidth: 1,
+    padding: 4,
+    gap: 6,
+  },
+  themeOption: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    borderRadius: theme.radii.control - 4,
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
+  themeOptionText: {
+    fontSize: 13,
+    fontFamily: theme.typography.fontBodyMedium,
   },
 });

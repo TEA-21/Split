@@ -1,13 +1,12 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { StyleSheet, useColorScheme, Platform, View } from 'react-native';
+import { StyleSheet, Platform, View } from 'react-native';
 import { Flame, MessageSquare, User } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
+import { useAppTheme } from '../../src/theme/useAppTheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { currentTheme } = useAppTheme();
 
   return (
     <Tabs

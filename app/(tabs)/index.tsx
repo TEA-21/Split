@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SlidersHorizontal, MapPin } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
+import { useAppTheme } from '../../src/theme/useAppTheme';
 import { SplitLogo } from '../../src/components/brand/SplitLogo';
 import { CardDeck } from '../../src/components/swipe/CardDeck';
 import { LocationPickerModal } from '../../src/components/location/LocationPickerModal';
@@ -12,9 +13,7 @@ import { useAppStore } from '../../src/store/useAppStore';
 import { RoommateProfile } from '../../src/types';
 
 export default function DiscoverScreen() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const {
     loadFeed,

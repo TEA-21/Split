@@ -8,12 +8,12 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  useColorScheme,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Plus, Trash2, Home } from 'lucide-react-native';
 import { RoomListing } from '../../types';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 
 interface RoomEditorProps {
   room: Partial<RoomListing>;
@@ -21,9 +21,7 @@ interface RoomEditorProps {
 }
 
 export const RoomEditor: React.FC<RoomEditorProps> = ({ room, onChange }) => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const handlePickPhoto = async () => {
     try {

@@ -7,17 +7,15 @@ import {
   TouchableOpacity,
   Switch,
   StyleSheet,
-  useColorScheme,
 } from 'react-native';
 import { X, Check } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 import { useAppStore } from '../../store/useAppStore';
 import { SearchFilters } from '../../types';
 
 export const FilterModal: React.FC = () => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const {
     filters,

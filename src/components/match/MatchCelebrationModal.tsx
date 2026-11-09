@@ -6,21 +6,19 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  useColorScheme,
   Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { MessageSquare, Sparkles, X } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
+import { useAppTheme } from '../../theme/useAppTheme';
 import { useAppStore } from '../../store/useAppStore';
 
 const { width } = Dimensions.get('window');
 
 export const MatchCelebrationModal: React.FC = () => {
   const router = useRouter();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  const currentTheme = isDark ? theme.dark : theme.light;
+  const { isDark, currentTheme } = useAppTheme();
 
   const { activeMatch, currentUser, dismissMatchModal } = useAppStore();
 

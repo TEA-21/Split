@@ -46,5 +46,18 @@ describe('useAppStore', () => {
     await useAppStore.getState().undoSwipe();
     expect(useAppStore.getState().feed[0]?.id).toBe(firstProfile.id);
   });
+
+  it('updates theme preference to light, dark, and system', () => {
+    expect(useAppStore.getState().themePreference).toBe('system');
+
+    useAppStore.getState().setThemePreference('dark');
+    expect(useAppStore.getState().themePreference).toBe('dark');
+
+    useAppStore.getState().setThemePreference('light');
+    expect(useAppStore.getState().themePreference).toBe('light');
+
+    useAppStore.getState().setThemePreference('system');
+    expect(useAppStore.getState().themePreference).toBe('system');
+  });
 });
 
