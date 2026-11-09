@@ -1,24 +1,24 @@
 export const theme = {
   light: {
-    background: '#E8E4DC',      // Dimmed warm matte canvas, zero white glare
-    surface: '#F0ECE4',         // Soft archival warm paper card (no harsh #FFFFFF)
-    surfaceSubtle: '#DDD8CE',   // Muted stone pill & input surface
-    border: 'rgba(38, 34, 31, 0.11)', // Defined soft hairline border
-    borderStrong: 'rgba(38, 34, 31, 0.20)',
-    textPrimary: '#28231F',     // Deep ink espresso
-    textSecondary: '#5C544C',   // Roasted bean
-    textMuted: '#8A7E74',       // Warm stone
+    background: '#F4EFE6',      // Velvety off-white warm cream canvas (easy on eyes)
+    surface: '#FCFAF5',         // Soft ivory cream card surface (no harsh glare)
+    surfaceSubtle: '#E9E2D5',   // Creamy biscuit pill & input surface
+    border: 'rgba(50, 40, 30, 0.09)', // Warm organic cream hairline
+    borderStrong: 'rgba(50, 40, 30, 0.18)',
+    textPrimary: '#2B231D',     // Deep warm espresso ink
+    textSecondary: '#5F5349',   // Warm hazelnut roast
+    textMuted: '#8E8175',       // Cream shadow stone
     accent: '#C25E36',          // Muted Terracotta
-    accentMuted: '#EAD6CC',     // Muted terracotta tint for pills
+    accentMuted: '#F2E4DB',     // Soft peach-cream tint for pills
     like: '#2E7D5B',            // Subdued sage
     likeBg: 'rgba(46, 125, 91, 0.12)',
     pass: '#A8443B',            // Muted brick
     passBg: 'rgba(168, 68, 59, 0.12)',
-    rewind: '#5C544C',          // Roasted bean neutral
+    rewind: '#5F5349',          // Warm neutral
     superlike: '#C25E36',       // Terracotta highlight
     superlikeBg: 'rgba(194, 94, 54, 0.12)',
     verified: '#2E7D5B',        // Subdued sage
-    cardShadow: 'rgba(38, 34, 31, 0.08)',
+    cardShadow: 'rgba(50, 40, 30, 0.06)',
   },
   dark: {
     background: '#191614',      // Deep Roasted Espresso
