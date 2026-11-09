@@ -9,14 +9,14 @@ module.exports = {
     extend: {
       colors: {
         split: {
-          oat: '#F5F3EF',
-          linen: '#FFFFFF',
-          subtle: '#ECEAE5',
+          oat: '#E8E4DC',
+          linen: '#F0ECE4',
+          subtle: '#DDD8CE',
           espresso: '#191614',
           stone: '#231F1C',
           darksubtle: '#2E2925',
           terracotta: '#C25E36',
-          terracottamuted: '#F5ECE6',
+          terracottamuted: '#EAD6CC',
           ink: '#26221F',
           bean: '#59524C',
           warmstone: '#8C827A',

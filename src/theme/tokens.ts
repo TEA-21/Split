@@ -1,24 +1,24 @@
 export const theme = {
   light: {
-    background: '#F5F3EF',      // Softer matte canvas, anti-glare
-    surface: '#FFFFFF',         // Clean elevated white card
-    surfaceSubtle: '#ECEAE5',   // Gentle neutral pill/input surface
-    border: 'rgba(38, 34, 31, 0.08)', // Quiet hairline border
-    borderStrong: 'rgba(38, 34, 31, 0.14)',
-    textPrimary: '#26221F',     // Deep ink espresso
-    textSecondary: '#5C5650',   // Roasted bean
-    textMuted: '#8C857E',       // Warm stone
+    background: '#E8E4DC',      // Dimmed warm matte canvas, zero white glare
+    surface: '#F0ECE4',         // Soft archival warm paper card (no harsh #FFFFFF)
+    surfaceSubtle: '#DDD8CE',   // Muted stone pill & input surface
+    border: 'rgba(38, 34, 31, 0.11)', // Defined soft hairline border
+    borderStrong: 'rgba(38, 34, 31, 0.20)',
+    textPrimary: '#28231F',     // Deep ink espresso
+    textSecondary: '#5C544C',   // Roasted bean
+    textMuted: '#8A7E74',       // Warm stone
     accent: '#C25E36',          // Muted Terracotta
-    accentMuted: '#F5ECE6',     // Softer terracotta tint for pills
+    accentMuted: '#EAD6CC',     // Muted terracotta tint for pills
     like: '#2E7D5B',            // Subdued sage
-    likeBg: 'rgba(46, 125, 91, 0.1)',
+    likeBg: 'rgba(46, 125, 91, 0.12)',
     pass: '#A8443B',            // Muted brick
-    passBg: 'rgba(168, 68, 59, 0.1)',
-    rewind: '#5C5650',          // Roasted bean neutral
+    passBg: 'rgba(168, 68, 59, 0.12)',
+    rewind: '#5C544C',          // Roasted bean neutral
     superlike: '#C25E36',       // Terracotta highlight
-    superlikeBg: 'rgba(194, 94, 54, 0.1)',
+    superlikeBg: 'rgba(194, 94, 54, 0.12)',
     verified: '#2E7D5B',        // Subdued sage
-    cardShadow: 'rgba(38, 34, 31, 0.06)',
+    cardShadow: 'rgba(38, 34, 31, 0.08)',
   },
   dark: {
     background: '#191614',      // Deep Roasted Espresso
