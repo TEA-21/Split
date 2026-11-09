@@ -173,6 +173,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
         {/* LIKE Stamp */}
         <Animated.View
+          pointerEvents="none"
           style={[
             styles.stamp,
             styles.likeStamp,
@@ -185,6 +186,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
         {/* NOPE Stamp */}
         <Animated.View
+          pointerEvents="none"
           style={[
             styles.stamp,
             styles.nopeStamp,
@@ -197,6 +199,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
         {/* SUPERLIKE Stamp */}
         <Animated.View
+          pointerEvents="none"
           style={[
             styles.stamp,
             styles.superlikeStamp,
@@ -313,7 +316,7 @@ const styles = StyleSheet.create({
     left: 14,
     flexDirection: 'row',
     gap: 6,
-    zIndex: 5,
+    zIndex: 20,
   },
   splitToggleSegment: {
     flexDirection: 'row',

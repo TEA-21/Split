@@ -5,3 +5,6 @@ node_modules/
 dist/
 web-build/
 .env*
+.playwright-mcp/
+*.png
+serve_dist.py

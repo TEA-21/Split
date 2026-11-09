@@ -89,7 +89,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onOpenReportModal }) => {
       {/* Cards stack */}
       <View style={styles.deckArea}>
         {secondCard && (
-          <View style={[styles.cardWrapper, styles.secondCardWrapper]}>
+          <View style={[styles.cardWrapper, styles.secondCardWrapper]} pointerEvents="none">
             <SwipeCard
               key={secondCard.id}
               profile={secondCard}
