@@ -241,8 +241,8 @@ const styles = StyleSheet.create({
     borderRadius: theme.radii.control,
     borderWidth: 1,
     paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 14,
+    paddingVertical: 8,
+    fontSize: 16,
     fontFamily: theme.typography.fontBody,
   },
   textArea: {

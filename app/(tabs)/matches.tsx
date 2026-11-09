@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CheckCircle, Sparkles } from 'lucide-react-native';
+import { CheckCircle, MessageSquareDashed } from 'lucide-react-native';
 import { theme } from '../../src/theme/tokens';
 import { useAppTheme } from '../../src/theme/useAppTheme';
 import { useAppStore } from '../../src/store/useAppStore';
@@ -59,7 +59,7 @@ export default function MatchesScreen() {
       {matches.length === 0 ? (
         <View style={styles.emptyContainer}>
           <View style={[styles.emptyIconCircle, { backgroundColor: currentTheme.accentMuted }]}>
-            <Sparkles size={28} color={currentTheme.accent} />
+            <MessageSquareDashed size={28} color={currentTheme.accent} />
           </View>
           <Text style={[styles.emptyTitle, { color: currentTheme.textPrimary }]}>
             No Matches Yet

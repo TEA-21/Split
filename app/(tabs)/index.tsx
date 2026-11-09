@@ -120,6 +120,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: theme.radii.pill,
     borderWidth: 1,
+    minHeight: 44,
+    justifyContent: 'center',
   },
   locationText: {
     fontSize: 12,
@@ -128,9 +130,9 @@ const styles = StyleSheet.create({
     maxWidth: 130,
   },
   filterIconButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',

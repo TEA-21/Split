@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 16,
     fontFamily: theme.typography.fontBody,
     maxHeight: 100,
     paddingVertical: 6,

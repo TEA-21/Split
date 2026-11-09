@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radii.control,
     borderWidth: 1,
     padding: 10,
-    fontSize: 13,
+    fontSize: 16,
     fontFamily: theme.typography.fontBody,
     minHeight: 50,
     textAlignVertical: 'top',

@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MessageSquare, Sparkles, X } from 'lucide-react-native';
+import { MessageSquare, HeartHandshake, X } from 'lucide-react-native';
 import { theme } from '../../theme/tokens';
 import { useAppTheme } from '../../theme/useAppTheme';
 import { useAppStore } from '../../store/useAppStore';
@@ -55,7 +55,7 @@ export const MatchCelebrationModal: React.FC = () => {
 
           {/* Sparkles icon */}
           <View style={[styles.sparkleIcon, { backgroundColor: currentTheme.likeBg }]}>
-            <Sparkles size={24} color={currentTheme.like} />
+            <HeartHandshake size={24} color={currentTheme.like} />
           </View>
 
           {/* Title */}

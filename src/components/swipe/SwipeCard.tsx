@@ -16,7 +16,7 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { CheckCircle, MapPin, Sparkles, Home, User } from 'lucide-react-native';
+import { CheckCircle, MapPin, Home, User } from 'lucide-react-native';
 import { RoommateProfile, SwipeDirection } from '../../types';
 import { theme } from '../../theme/tokens';
 import { useAppTheme } from '../../theme/useAppTheme';

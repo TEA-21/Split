@@ -16,7 +16,7 @@ import {
   Calendar,
   Home,
   ShieldAlert,
-  Sparkles,
+  Check,
   Bath,
   Zap,
   Shirt,
@@ -172,7 +172,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                   Living Habits Split Comparison
                 </Text>
                 <View style={[styles.matchIndicator, { backgroundColor: currentTheme.likeBg }]}>
-                  <Sparkles size={12} color={currentTheme.like} />
+                  <Check size={12} color={currentTheme.like} strokeWidth={2.5} />
                   <Text style={[styles.matchText, { color: currentTheme.like }]}>Compatibility</Text>
                 </View>
               </View>
