@@ -8,6 +8,7 @@ import {
   SearchFilters,
 } from '../types';
 import { IRoommateService } from './IRoommateService';
+import { assertValidUuid } from '../utils/security';
 
 export class SupabaseRoommateService implements IRoommateService {
   private client: SupabaseClient;
@@ -17,6 +18,7 @@ export class SupabaseRoommateService implements IRoommateService {
   }
 
   async getFeed(currentUserId: string, filters: SearchFilters): Promise<RoommateProfile[]> {
+    assertValidUuid(currentUserId, 'currentUserId');
     const { data, error } = await this.client.rpc('get_roommate_feed', {
       current_user_id: currentUserId,
       ref_lat: filters.referenceLocation.latitude,
@@ -43,6 +45,8 @@ export class SupabaseRoommateService implements IRoommateService {
     targetId: string,
     direction: SwipeDirection
   ): Promise<{ isMatch: boolean; match?: MatchItem }> {
+    assertValidUuid(swiperId, 'swiperId');
+    assertValidUuid(targetId, 'targetId');
     const { error } = await this.client
       .from('swipes')
       .upsert(
@@ -86,6 +90,7 @@ export class SupabaseRoommateService implements IRoommateService {
   }
 
   async rewindSwipe(swiperId: string): Promise<RoommateProfile | null> {
+    assertValidUuid(swiperId, 'swiperId');
     const { data: latestSwipe } = await this.client
       .from('swipes')
       .select('target_id')
@@ -114,6 +119,7 @@ export class SupabaseRoommateService implements IRoommateService {
   }
 
   async getMatches(currentUserId: string): Promise<MatchItem[]> {
+    assertValidUuid(currentUserId, 'currentUserId');
     const { data, error } = await this.client
       .from('matches')
       .select(`
@@ -155,6 +161,7 @@ export class SupabaseRoommateService implements IRoommateService {
   }
 
   async getMessages(matchId: string): Promise<ChatMessage[]> {
+    assertValidUuid(matchId, 'matchId');
     const { data, error } = await this.client
       .from('messages')
       .select('*')
@@ -174,6 +181,8 @@ export class SupabaseRoommateService implements IRoommateService {
   }
 
   async sendMessage(matchId: string, senderId: string, content: string): Promise<ChatMessage> {
+    assertValidUuid(matchId, 'matchId');
+    assertValidUuid(senderId, 'senderId');
     const { data, error } = await this.client
       .from('messages')
       .insert({
@@ -197,6 +206,8 @@ export class SupabaseRoommateService implements IRoommateService {
   }
 
   async markMessagesRead(matchId: string, userId: string): Promise<void> {
+    assertValidUuid(matchId, 'matchId');
+    assertValidUuid(userId, 'userId');
     await this.client
       .from('messages')
       .update({ read_at: new Date().toISOString() })
@@ -262,6 +273,8 @@ export class SupabaseRoommateService implements IRoommateService {
     details?: string,
     isBlock = false
   ): Promise<void> {
+    assertValidUuid(reporterId, 'reporterId');
+    assertValidUuid(targetId, 'targetId');
     const { error } = await this.client.from('user_reports').insert({
       reporter_id: reporterId,
       reported_id: targetId,

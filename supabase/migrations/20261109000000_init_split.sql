@@ -112,7 +112,11 @@ CREATE TABLE public.user_reports (
 
 -- Trigger A: Match Automation on Swipe Upsert (SECURITY DEFINER prevents client swipe leakage)
 CREATE OR REPLACE FUNCTION handle_swipe_match()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
 DECLARE
   v_first UUID;
   v_second UUID;
@@ -137,7 +141,7 @@ BEGIN
   END IF;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 CREATE TRIGGER on_swipe_upserted
 AFTER INSERT OR UPDATE ON public.swipes
@@ -145,7 +149,11 @@ FOR EACH ROW EXECUTE FUNCTION handle_swipe_match();
 
 -- Trigger B: Swipe Rewind Cleanup (Deletes reciprocal match if user immediately undos swipe)
 CREATE OR REPLACE FUNCTION handle_swipe_rewind()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
 DECLARE
   v_first UUID;
   v_second UUID;
@@ -158,7 +166,7 @@ BEGIN
 
   RETURN OLD;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 CREATE TRIGGER on_swipe_deleted
 AFTER DELETE ON public.swipes
@@ -166,14 +174,18 @@ FOR EACH ROW EXECUTE FUNCTION handle_swipe_rewind();
 
 -- Trigger C: Update Match Last Interaction on Message Sent
 CREATE OR REPLACE FUNCTION handle_message_sent()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
 BEGIN
   UPDATE public.matches
   SET last_interaction_at = NOW()
   WHERE id = NEW.match_id;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 CREATE TRIGGER on_message_inserted
 AFTER INSERT ON public.messages
@@ -181,7 +193,11 @@ FOR EACH ROW EXECUTE FUNCTION handle_message_sent();
 
 -- Trigger D: Purge Matches on Block
 CREATE OR REPLACE FUNCTION handle_block_cleanup()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
 BEGIN
   IF NEW.is_block = true THEN
     DELETE FROM public.matches
@@ -190,7 +206,7 @@ BEGIN
   END IF;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 CREATE TRIGGER on_user_blocked
 AFTER INSERT OR UPDATE ON public.user_reports
@@ -238,8 +254,20 @@ RETURNS TABLE (
   verified_email BOOLEAN,
   distance_miles DOUBLE PRECISION,
   room_data JSONB
-) AS $$
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
 BEGIN
+  -- Security guard: Prevent identity spoofing and unauthenticated enumeration
+  IF auth.uid() IS NULL THEN
+    RAISE EXCEPTION 'Unauthorized: Authentication required';
+  END IF;
+  IF current_user_id IS DISTINCT FROM auth.uid() THEN
+    RAISE EXCEPTION 'Unauthorized: Caller identity mismatch';
+  END IF;
+
   RETURN QUERY
   SELECT 
     p.id,
@@ -324,7 +352,11 @@ BEGIN
     CASE WHEN p.target_location IS NOT NULL THEN 0 ELSE 1 END,
     ST_Distance(p.target_location::geography, ST_SetSRID(ST_MakePoint(ref_lng, ref_lat), 4326)::geography) ASC;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
+
+-- Security guard: Revoke public execution and grant strictly to authenticated users
+REVOKE EXECUTE ON FUNCTION get_roommate_feed FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION get_roommate_feed TO authenticated;
 
 -- ==============================================================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
