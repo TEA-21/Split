@@ -1,7 +1,4 @@
-.projectmem/events.jsonl
-.projectmem/watch.pid
-.projectmem/watch.log
-.projectmem/structure.json
+.projectmem/
 .agent/
 node_modules/
 .expo/
