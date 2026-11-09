@@ -1,20 +1,20 @@
 export const theme = {
   light: {
-    background: '#FBF9F5',      // Warm Oat / Linen
-    surface: '#F2EDE4',         // Elevated warm paper
-    surfaceSubtle: '#EBE4D8',   // Card background alt
+    background: '#F5F3EF',      // Softer matte canvas, anti-glare
+    surface: '#FFFFFF',         // Clean elevated white card
+    surfaceSubtle: '#ECEAE5',   // Gentle neutral pill/input surface
     border: 'rgba(38, 34, 31, 0.08)', // Quiet hairline border
-    borderStrong: 'rgba(38, 34, 31, 0.16)',
+    borderStrong: 'rgba(38, 34, 31, 0.14)',
     textPrimary: '#26221F',     // Deep ink espresso
-    textSecondary: '#59524C',   // Roasted bean
-    textMuted: '#8C827A',       // Warm stone
+    textSecondary: '#5C5650',   // Roasted bean
+    textMuted: '#8C857E',       // Warm stone
     accent: '#C25E36',          // Muted Terracotta
-    accentMuted: '#EEDCD4',     // Terracotta tint for pills
+    accentMuted: '#F5ECE6',     // Softer terracotta tint for pills
     like: '#2E7D5B',            // Subdued sage
     likeBg: 'rgba(46, 125, 91, 0.1)',
     pass: '#A8443B',            // Muted brick
     passBg: 'rgba(168, 68, 59, 0.1)',
-    rewind: '#59524C',          // Roasted bean neutral
+    rewind: '#5C5650',          // Roasted bean neutral
     superlike: '#C25E36',       // Terracotta highlight
     superlikeBg: 'rgba(194, 94, 54, 0.1)',
     verified: '#2E7D5B',        // Subdued sage
