@@ -55,7 +55,7 @@ export default function DiscoverScreen() {
               style={[styles.locationText, { color: currentTheme.textPrimary }]}
               numberOfLines={1}
             >
-              {filters.referenceLocationName.split(',')[0]} • {filters.radiusMiles}mi
+              {filters.referenceLocationName.split(',')[0]} • {filters.radiusKm ?? filters.radiusMiles}km
             </Text>
           </TouchableOpacity>
 

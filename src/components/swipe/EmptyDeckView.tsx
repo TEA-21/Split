@@ -39,7 +39,7 @@ export const EmptyDeckView: React.FC<EmptyDeckViewProps> = ({
           activeOpacity={0.8}
         >
           <MapPin size={16} color="#FFFFFF" strokeWidth={2.2} />
-          <Text style={styles.primaryButtonText}>Expand Search to 50 Miles</Text>
+          <Text style={styles.primaryButtonText}>Expand Search to 40 km</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

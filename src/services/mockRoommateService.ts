@@ -9,15 +9,15 @@ import {
 } from '../types';
 import { IRoommateService } from './IRoommateService';
 import { MOCK_PROFILES, INITIAL_USER_PROFILE } from './mockData';
-import { calculateDistanceMiles } from './locationService';
+import { calculateDistanceKm, calculateDistanceMiles } from './locationService';
 
 const STORAGE_KEYS = {
-  SWIPES: 'split_swipes_v1',
-  MATCHES: 'split_matches_v1',
-  MESSAGES: 'split_messages_v1',
-  REPORTS: 'split_reports_v1',
-  BLOCKS: 'split_blocks_v1',
-  USER_PROFILE: 'split_user_profile_v1',
+  SWIPES: 'split_swipes_v2',
+  MATCHES: 'split_matches_v2',
+  MESSAGES: 'split_messages_v2',
+  REPORTS: 'split_reports_v2',
+  BLOCKS: 'split_blocks_v2',
+  USER_PROFILE: 'split_user_profile_v2',
 };
 
 // Seed profiles that will reciprocate a like immediately for demo delight
@@ -111,8 +111,9 @@ export class MockRoommateService implements IRoommateService {
         }
 
         // Spatial radius filter
-        const distance = calculateDistanceMiles(filters.referenceLocation, profile.coordinates);
-        if (distance > filters.radiusMiles) {
+        const distanceKm = calculateDistanceKm(filters.referenceLocation, profile.coordinates);
+        const radiusLimit = filters.radiusKm ?? (filters.radiusMiles ? filters.radiusMiles * 1.60934 : 25);
+        if (distanceKm > radiusLimit) {
           return false;
         }
 
@@ -120,9 +121,10 @@ export class MockRoommateService implements IRoommateService {
       })
       .map((profile) => ({
         ...profile,
+        distanceKm: calculateDistanceKm(filters.referenceLocation, profile.coordinates),
         distanceMiles: calculateDistanceMiles(filters.referenceLocation, profile.coordinates),
       }))
-      .sort((a, b) => (a.distanceMiles ?? 0) - (b.distanceMiles ?? 0));
+      .sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0));
   }
 
   async submitSwipe(

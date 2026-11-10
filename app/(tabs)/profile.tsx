@@ -66,7 +66,7 @@ export default function ProfileScreen() {
 
               <View style={[styles.splitChip, { backgroundColor: currentTheme.accent }]}>
                 <Text style={styles.splitChipText}>
-                  ${currentUser.room?.rentMonthly ?? currentUser.budgetMax}/mo split
+                  ₹{(currentUser.room?.rentMonthly ?? currentUser.budgetMax).toLocaleString('en-IN')}/mo split
                 </Text>
               </View>
             </View>
@@ -238,7 +238,7 @@ export default function ProfileScreen() {
                 </Text>
               </View>
               <Text style={[styles.roomCardSub, { color: currentTheme.textSecondary }]}>
-                ${currentUser.room.rentMonthly}/mo • {currentUser.room.privateBath ? 'Private Bath' : 'Shared Bath'} • {currentUser.room.hasLaundry ? 'In-unit Laundry' : 'Laundry nearby'}
+                ₹{currentUser.room.rentMonthly.toLocaleString('en-IN')}/mo • {currentUser.room.privateBath ? 'Private Bath' : 'Shared Bath'} • {currentUser.room.hasLaundry ? 'In-unit Laundry' : 'Laundry nearby'}
               </Text>
             </View>
           </View>

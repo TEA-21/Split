@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>A high-craft, mobile-first roommate matching application designed to take the friction, scams, and awkwardness out of splitting rent.</strong>
+  <strong>A high-craft, mobile-first roommate matching application designed to eliminate brokerage extortion, societal policing, and dietary friction when finding roommates in India.</strong>
 </p>
 
 <p align="center">
@@ -15,28 +15,38 @@
   <img src="https://img.shields.io/badge/Reanimated-v3.16-9900FF?style=flat-square" alt="Reanimated v3" />
   <img src="https://img.shields.io/badge/Supabase-PostgreSQL_%2B_PostGIS-3ECF8E?style=flat-square&logo=supabase" alt="Supabase PostGIS" />
   <img src="https://img.shields.io/badge/Design-Architectural_Warmth-C25E36?style=flat-square" alt="Architectural Warmth" />
+  <img src="https://img.shields.io/badge/Currency-INR_(₹)-success?style=flat-square" alt="Currency INR" />
+  <img src="https://img.shields.io/badge/Distance-Metric_(km)-blue?style=flat-square" alt="Metric Distance" />
   <img src="https://img.shields.io/badge/Tests-8%2F8_Passing-2E7D5B?style=flat-square" alt="Tests Passing" />
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License" />
 </p>
 
 ---
 
-## The Problem & The Split Solution
+## India-First Launch: Solving Indian Urban Rental Realities
 
-Finding a compatible roommate in high-cost metro areas is broken:
-- **Craigslist & Facebook Groups** are rife with rental scams, phantom listings, and unvetted strangers.
-- **Generic Roommate Apps** treat flatmates like real estate transactions, ignoring daily living habits, sleep schedules, and cleanliness compatibility.
-- **Awkward Negotiations**: Budget mismatches and amenity expectations are often discovered only after moving in.
+Finding a compatible roommate in India's booming tech corridors (Bengaluru, Mumbai, Delhi NCR, Pune, Hyderabad) is notoriously broken. Traditional channels like chaotic Flat & Flatmates Facebook groups, brokerage listing sites, and broker WhatsApp circles force young professionals to endure:
 
-**Split** re-engineers roommate discovery into a tactile, 60fps gesture-driven experience:
-1. **Swipe with Velocity**: Tinder-style pan physics powered by React Native Reanimated v3.
-2. **Dual-Mode Asymmetry**: Matches users who *have a room* with users who *need a room*, or pairs co-tenants looking to team up on a fresh lease.
-3. **Objective Compatibility**: Side-by-side Living Habit Split matrix eliminates surprises before either party messages.
-4. **Spatial Precision**: PostGIS spatial radar queries candidates within custom radii around live GPS pins or relocation target cities.
+1. **1–2 Month Brokerage Extortion**: Brokers extract ₹20,000–₹50,000+ non-refundable commission fees just for a single room lead or flatmate replacement. Split completely eliminates broker middleman fees through peer-to-peer roommate matching.
+2. **Restrictive Society & RWA Bachelor Policing**: Resident Welfare Associations (RWAs) and conservative housing societies subject bachelors to curfew restrictions, moral policing, and visitor bans. Split helps vetted professionals band together with co-tenants who understand and navigate these constraints.
+3. **Dietary Matching (Pure Veg vs. Non-Veg Disputes)**: Kitchen conflicts between strict vegetarians/Jain food eaters and non-vegetarians are one of the most common causes of Indian roommate fallout. Split introduces mandatory dietary preference filtering (`Pure Veg`, `Vegetarian`, `Eggetarian`, `Non-Veg`, `Jain Food`) directly in swipe cards and lifestyle matrices.
+4. **Domestic Maid & Cook Expense Splitting**: Shared household operations—splitting domestic maid salaries, cook fees, grocery allowances, and maintenance bills—frequently cause awkward interpersonal friction. Split aligns habits, hygiene benchmarks, and budget expectations upfront.
+
+### Top Launch Hubs & Tech Corridors
+
+Split is pre-calibrated with spatial radar nodes covering major urban IT and commercial hubs:
+
+| Hub | Key Neighborhoods & Corridors Covered | Coordinates |
+| :--- | :--- | :--- |
+| **Bengaluru** *(Primary Launch)* | Koramangala, Indiranagar, HSR Layout, Bellandur, Whitefield | `12.9352, 77.6245` |
+| **Mumbai** | Bandra West, Andheri West, Powai | `19.0596, 72.8295` |
+| **Delhi NCR** | DLF Cyber City (Gurgaon), Sector 62 (Noida), Hauz Khas | `28.4950, 77.0895` |
+| **Pune** | Koregaon Park, Viman Nagar, Hinjawadi | `18.5362, 73.8940` |
+| **Hyderabad** | Hitec City, Gachibowli, Madhapur, Kondapur | `17.4435, 78.3772` |
 
 ---
 
-## Architecture Overview
+## The Split Core Architecture
 
 ```
                                       +---------------------------------------------+
@@ -51,8 +61,8 @@ Finding a compatible roommate in high-cost metro areas is broken:
                        v                                                                           v
          +----------------------------+                                              +----------------------------+
          |     MockRoommateService    |                                              |   SupabaseRoommateService  |
-         |  - In-memory seed state    |                                              |  - PostGIS Spatial RPC     |
-         |  - AsyncStorage cache      |                                              |  - PostgreSQL Triggers     |
+         |  - In-memory Indian seeds  |                                              |  - PostGIS Spatial RPC     |
+         |  - AsyncStorage cache (v2) |                                              |  - PostgreSQL Triggers     |
          |  - Auto-reply simulation   |                                              |  - Row Level Security (RLS)|
          |  - Zero-config offline     |                                              |  - Realtime WebSockets     |
          +----------------------------+                                              +----------------------------+
@@ -82,8 +92,8 @@ Finding a compatible roommate in high-cost metro areas is broken:
 ### 2. Dual-Mode Pairing Engine
 | Mode | Perspective | Key Data Captured |
 | :--- | :--- | :--- |
-| **"Offers Room"** (`have_room`) | User has an apartment with an open bedroom. | Monthly rent split, security deposit, private bath, in-unit laundry, parking, room photos, masked address. |
-| **"Looking to Team Up"** (`need_room`) | User is seeking a flatmate to co-sign a new lease together. | Target budget ceiling ($/mo), lease duration, move-in window, target relocation neighborhoods. |
+| **"Offers Room"** (`have_room`) | User has an apartment flat in a gated society with an open private bedroom. | Monthly rent split (₹/mo), security deposit, private bath, in-unit laundry, parking, room photos, masked address. |
+| **"Looking to Team Up"** (`need_room`) | User is seeking a flatmate to co-lease a 2BHK or 3BHK flat together. | Target budget ceiling (₹/mo), lease duration, move-in window, target relocation tech corridor. |
 
 ### 3. Split Photo Card (Person vs Room)
 Users offering a room feature an interactive split segmented toggle floating on the card portrait:
@@ -100,6 +110,7 @@ Tapping any profile card opens a full sheet detailing direct lifestyle compatibi
 |  Habit                  | You                     | Roommate Candidate|
 +-------------------------+-------------------------+-------------------+
 |  Cleanliness            | 4/5 (Clean & Tidy)      | 4/5 (Clean & Tidy)|
+|  Dietary Preference     | Vegetarian              | Pure Veg          |
 |  Sleep Schedule         | Flexible                | Night Owl         |
 |  Work Style             | Hybrid                  | Hybrid            |
 |  Pet Policy             | Pet-friendly            | Has Pets (Cat)    |
@@ -110,24 +121,19 @@ Tapping any profile card opens a full sheet detailing direct lifestyle compatibi
 
 ### 5. Dual Vicinity & Spatial Radar Engine
 - **Live GPS Mode**: Requests foreground permissions via `expo-location` and queries candidates using PostGIS `ST_DWithin` (or client Haversine geodesic calculations).
-- **Target City Relocation**: Pre-calibrated coordinates for major metro corridors:
-  - Seattle, WA (`47.6062, -122.3321`)
-  - Manhattan, NY (`40.7580, -73.9855`)
-  - Brooklyn, NY (`40.6782, -73.9442`)
-  - San Francisco, CA (`37.7749, -122.4194`)
-  - Austin, TX (`30.2672, -97.7431`)
-  - Chicago, IL (`41.8781, -87.6298`)
-- Dynamic distance radius slider (5 to 50 miles) with auto-updating candidate distance badges.
+- **Target Tech Corridors**: Pre-calibrated coordinates for Indian metropolitan nodes (Koramangala, Indiranagar, HSR, Bandra, Cyber City, Hitec City).
+- **Dynamic Distance Radius Slider**: Calibrated in metric units (3 km, 5 km, 10 km, 15 km, 25 km, 40 km) with auto-updating candidate distance badges (`5.4 km away`).
 
 ### 6. Reciprocal Match Celebration & Real-Time Chat
 - Swiping right on a reciprocal candidate automatically triggers the full-screen **"It's a Match!"** celebration modal.
 - 1-on-1 messaging screen with optimistic client append, unread status indicators, and simulated auto-replies in offline mode.
+- Header banner displays monthly rent split formatted in Indian numbering (`₹18,000/mo split • Indiranagar, Bengaluru`).
 - Top-shelf horizontal new match carousel with unread pulse rings.
 
 ### 7. Trust, Safety & Anti-Scam Shield
 - In-app reporting flow with structured categories: *Scam / Fake Listing*, *Harassment*, *Inappropriate Photos*, *Spam*.
 - **1-Tap Block & Purge**: Blocks instantly sever mutual matches, purge conversations, and permanently exclude candidate IDs from future discovery feeds.
-- Built-in Safety Guidelines drawer detailing lease verification, meeting in public venues, and wire transfer safety.
+- Built-in Safety Guidelines drawer detailing lease verification, visiting gated societies during daylight, avoiding token advance payments to unverified accounts, and verifying landlord agreements.
 
 ---
 
@@ -151,7 +157,7 @@ The aesthetic draws inspiration from mid-century editorial design and architectu
 ### Mobile Ergonomics & Redline Standards
 - **Touch Target Parity**: All interactive buttons, icon pills, and controls adhere strictly to `>= 44x44px` physical touch targets (Apple HIG / W3C).
 - **iOS Viewport Zoom Defense**: All `<TextInput>` fields enforce `fontSize >= 16px` to prevent Mobile Safari from forcing disruptive auto-zoom on input focus.
-- **Tabular Numerals**: Dollar amounts (`$1,200/mo split`) and distance metrics use `fontMono` tabular formatting to eliminate layout reflow.
+- **Tabular Numerals**: Rupee amounts (`₹18,000/mo split`) and distance metrics (`5.4 km away`) use `fontMono` tabular formatting to eliminate layout reflow.
 - **Brand Mark**: Pure geometric split doorway SVG in [SplitLogo.tsx](file:///d:/Projects/Tinder%20for%20Roomates/src/components/brand/SplitLogo.tsx) representing two balanced pillars divided by hairline negative space.
 
 ---
@@ -161,7 +167,7 @@ The aesthetic draws inspiration from mid-century editorial design and architectu
 The production migration lives at `supabase/migrations/20261109000000_init_split.sql`.
 
 ### Core Tables & Relations
-- `profiles`: Primary account details, budget bounds, move-in target, lifestyle attributes, and `target_location` (`GEOMETRY(Point, 4326)`).
+- `profiles`: Primary account details, budget bounds in INR, dietary preferences, lifestyle attributes, and `target_location` (`GEOMETRY(Point, 4326)`).
 - `rooms`: Sub-table enforcing `uq_rooms_owner_id UNIQUE(owner_id)` for 1-to-1 room listings with rent metrics and spatial coordinates.
 - `swipes`: User actions (`like`, `pass`, `superlike`) with unique constraint on `(swiper_id, target_id)`.
 - `matches`: Canonical ordering `CHECK (user_a < user_b)` preventing duplicate reciprocal match rows.
@@ -201,8 +207,8 @@ split/
 │   ├── components/
 │   │   ├── brand/                      # SplitLogo geometric doorway SVG
 │   │   ├── chat/                       # ChatBubble, ChatInput (16px zoom defense)
-│   │   ├── filters/                    # FilterModal (budget, mode, radius)
-│   │   ├── location/                   # LocationPickerModal (GPS + City presets)
+│   │   ├── filters/                    # FilterModal (INR budget, mode, radius in km)
+│   │   ├── location/                   # LocationPickerModal (GPS + Indian City presets)
 │   │   ├── match/                      # MatchCelebrationModal ("It's a Match!")
 │   │   ├── profile/                    # LifestyleSelector questionnaire
 │   │   ├── room/                       # RoomEditor listing & amenity form
@@ -211,15 +217,15 @@ split/
 │   │
 │   ├── services/
 │   │   ├── IRoommateService.ts         # Standardized repository interface
-│   │   ├── mockData.ts                 # 12 diverse, high-res pre-seeded profiles
-│   │   ├── mockRoommateService.ts      # Zero-config offline mock engine
-│   │   ├── supabaseRoommateService.ts  # Cloud Supabase + PostGIS RPC client
+│   │   ├── mockData.ts                 # 12 diverse, high-res pre-seeded Indian profiles
+│   │   ├── mockRoommateService.ts      # Zero-config offline mock engine (v2 cache)
+│   │   ├── supabaseRoommateService.ts  # Cloud Supabase + PostGIS metric RPC client
 │   │   ├── roommateService.ts          # Environmental factory provider
-│   │   ├── locationService.ts          # Haversine distance & Expo GPS provider
+│   │   ├── locationService.ts          # Haversine metric (km) distance & Expo GPS provider
 │   │   └── safetyService.ts            # Local report persistence & audit logger
 │   │
 │   ├── store/
-│   │   └── useAppStore.ts              # Zustand global application state
+│   │   └── useAppStore.ts              # Zustand global application state (INR + km)
 │   │
 │   ├── theme/
 │   │   ├── tokens.ts                   # Architectural Warmth tokens (light/dark)
@@ -230,7 +236,7 @@ split/
 │
 ├── supabase/
 │   └── migrations/
-│       └── 20261109000000_init_split.sql # Complete PostgreSQL DDL + PostGIS RPC
+│       └── 20261109000000_init_split.sql # Complete PostgreSQL DDL + PostGIS metric RPC
 │
 ├── __tests__/                          # Jest Unit & Integration Test Suites
 │   ├── store.test.ts                   # Zustand swipe, rewind, filter tests

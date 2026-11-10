@@ -5,7 +5,8 @@ describe('useAppStore', () => {
     useAppStore.setState(useAppStore.getInitialState());
   });
 
-  it('loads roommate feed profiles with valid attributes', async () => {
+  it('loads roommate feed profiles with valid attributes and verifies radiusKm: 25', async () => {
+    expect(useAppStore.getState().filters.radiusKm).toBe(25);
     await useAppStore.getState().loadFeed();
     const feed = useAppStore.getState().feed;
     expect(feed.length).toBeGreaterThan(0);
@@ -14,18 +15,18 @@ describe('useAppStore', () => {
     expect(feed[0]).toHaveProperty('cleanlinessLevel');
   });
 
-  it('handles right swipe and triggers mutual match on reciprocal profile', async () => {
+  it('handles right swipe and triggers mutual match on reciprocal profile user-002', async () => {
     await useAppStore.getState().loadFeed();
     const initialFeed = useAppStore.getState().feed;
     const initialCount = initialFeed.length;
 
-    // Julian Vance (user-002) is pre-configured as reciprocal match
-    const julian = initialFeed.find((p) => p.id === 'user-002');
-    expect(julian).toBeDefined();
+    // user-002 (Ananya Iyer) is pre-configured as reciprocal match
+    const reciprocalUser = initialFeed.find((p) => p.id === 'user-002');
+    expect(reciprocalUser).toBeDefined();
 
-    // Reorder feed so Julian is first
+    // Reorder feed so reciprocal candidate is first
     useAppStore.setState({
-      feed: [julian!, ...initialFeed.filter((p) => p.id !== 'user-002')],
+      feed: [reciprocalUser!, ...initialFeed.filter((p) => p.id !== 'user-002')],
     });
 
     const result = await useAppStore.getState().swipe('like');
@@ -47,7 +48,12 @@ describe('useAppStore', () => {
     expect(useAppStore.getState().feed[0]?.id).toBe(firstProfile.id);
   });
 
-  it('updates theme preference to light, dark, and system', () => {
+  it('updates search filters and theme preference', () => {
+    expect(useAppStore.getState().filters.radiusKm).toBe(25);
+    useAppStore.getState().setFilters({ radiusKm: 40, budgetMax: 50000 });
+    expect(useAppStore.getState().filters.radiusKm).toBe(40);
+    expect(useAppStore.getState().filters.budgetMax).toBe(50000);
+
     expect(useAppStore.getState().themePreference).toBe('system');
 
     useAppStore.getState().setThemePreference('dark');
@@ -60,4 +66,3 @@ describe('useAppStore', () => {
     expect(useAppStore.getState().themePreference).toBe('system');
   });
 });
-

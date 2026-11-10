@@ -280,7 +280,7 @@ export default function EditProfileScreen() {
           {/* Budget */}
           <View style={styles.row}>
             <View style={[styles.field, { flex: 1 }]}>
-              <Text style={[styles.label, { color: currentTheme.textSecondary }]}>Min Budget ($/mo)</Text>
+              <Text style={[styles.label, { color: currentTheme.textSecondary }]}>Min Budget (₹/mo)</Text>
               <TextInput
                 style={[styles.input, { backgroundColor: currentTheme.surface, color: currentTheme.textPrimary, borderColor: currentTheme.border }]}
                 value={String(form.budgetMin)}
@@ -290,7 +290,7 @@ export default function EditProfileScreen() {
             </View>
 
             <View style={[styles.field, { flex: 1 }]}>
-              <Text style={[styles.label, { color: currentTheme.textSecondary }]}>Max Budget ($/mo)</Text>
+              <Text style={[styles.label, { color: currentTheme.textSecondary }]}>Max Budget (₹/mo)</Text>
               <TextInput
                 style={[styles.input, { backgroundColor: currentTheme.surface, color: currentTheme.textPrimary, borderColor: currentTheme.border }]}
                 value={String(form.budgetMax)}
@@ -308,6 +308,42 @@ export default function EditProfileScreen() {
               value={form.moveInDate}
               onChangeText={(val) => setForm({ ...form, moveInDate: val })}
             />
+          </View>
+
+          {/* Dietary Preference */}
+          <View style={styles.field}>
+            <Text style={[styles.label, { color: currentTheme.textSecondary }]}>Dietary Preference</Text>
+            <View style={styles.dietaryChipsRow}>
+              {['Vegetarian', 'Pure Veg', 'Eggetarian', 'Non-Veg', 'Jain Food'].map((diet) => {
+                const isSelected = form.dietaryPref === diet;
+                return (
+                  <TouchableOpacity
+                    key={diet}
+                    style={[
+                      styles.dietChip,
+                      {
+                        backgroundColor: isSelected ? currentTheme.accent : currentTheme.surface,
+                        borderColor: isSelected ? currentTheme.accent : currentTheme.border,
+                      },
+                    ]}
+                    onPress={() => setForm({ ...form, dietaryPref: diet })}
+                    activeOpacity={0.8}
+                  >
+                    <Text
+                      style={[
+                        styles.dietChipText,
+                        {
+                          color: isSelected ? '#FFFFFF' : currentTheme.textPrimary,
+                          fontWeight: isSelected ? '700' : '500',
+                        },
+                      ]}
+                    >
+                      {diet}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
           </View>
         </View>
 
@@ -522,6 +558,25 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 15,
     fontWeight: '700',
+    fontFamily: theme.typography.fontBodyMedium,
+  },
+  dietaryChipsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 4,
+  },
+  dietChip: {
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: theme.radii.pill,
+    borderWidth: 1,
+    minHeight: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dietChipText: {
+    fontSize: 13,
     fontFamily: theme.typography.fontBodyMedium,
   },
 });

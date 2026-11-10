@@ -50,6 +50,7 @@ export interface RoommateProfile {
   dietaryPref: string;
   coordinates: Coordinates;
   locationName: string;
+  distanceKm?: number;
   distanceMiles?: number;
   verifiedEmail: boolean;
   room?: RoomListing;
@@ -77,7 +78,8 @@ export interface SearchFilters {
   userMode: 'all' | 'have_room' | 'need_room';
   budgetMin: number;
   budgetMax: number;
-  radiusMiles: number;
+  radiusKm: number;
+  radiusMiles?: number;
   cleanlinessMin: number;
   petFriendlyOnly: boolean;
   nonSmokerOnly: boolean;

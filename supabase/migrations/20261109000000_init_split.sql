@@ -30,7 +30,7 @@ CREATE TABLE public.profiles (
   dietary_pref TEXT,
   target_location GEOMETRY(Point, 4326),
   target_location_name TEXT,
-  search_radius_miles INTEGER DEFAULT 15,
+  search_radius_km INTEGER DEFAULT 25,
   verified_email BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -220,7 +220,7 @@ CREATE OR REPLACE FUNCTION get_roommate_feed(
   current_user_id UUID,
   ref_lat DOUBLE PRECISION,
   ref_lng DOUBLE PRECISION,
-  radius_miles DOUBLE PRECISION,
+  radius_km DOUBLE PRECISION DEFAULT 25.0,
   filter_mode TEXT DEFAULT 'all',
   budget_min_filter INTEGER DEFAULT 0,
   budget_max_filter INTEGER DEFAULT 99999,
@@ -252,7 +252,7 @@ RETURNS TABLE (
   longitude DOUBLE PRECISION,
   target_location_name TEXT,
   verified_email BOOLEAN,
-  distance_miles DOUBLE PRECISION,
+  distance_km DOUBLE PRECISION,
   room_data JSONB
 )
 LANGUAGE plpgsql
@@ -293,7 +293,7 @@ BEGIN
     ST_X(p.target_location::geometry) AS longitude,
     p.target_location_name,
     p.verified_email,
-    ROUND((ST_Distance(p.target_location::geography, ST_SetSRID(ST_MakePoint(ref_lng, ref_lat), 4326)::geography) / 1609.34)::numeric, 1)::DOUBLE PRECISION AS distance_miles,
+    ROUND((ST_Distance(p.target_location::geography, ST_SetSRID(ST_MakePoint(ref_lng, ref_lat), 4326)::geography) / 1000.0)::numeric, 1)::DOUBLE PRECISION AS distance_km,
     CASE 
       WHEN r.id IS NOT NULL THEN jsonb_build_object(
         'id', r.id,
@@ -345,7 +345,7 @@ BEGIN
       OR ST_DWithin(
         p.target_location::geography,
         ST_SetSRID(ST_MakePoint(ref_lng, ref_lat), 4326)::geography,
-        radius_miles * 1609.34
+        radius_km * 1000.0
       )
     )
   ORDER BY 

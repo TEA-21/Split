@@ -139,7 +139,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                   <MapPin size={14} color={currentTheme.textMuted} />
                   <Text style={[styles.locationText, { color: currentTheme.textSecondary }]}>
                     {profile.locationName}
-                    {profile.distanceMiles !== undefined ? ` • ${profile.distanceMiles} mi away` : ''}
+                    {profile.distanceKm !== undefined ? ` • ${profile.distanceKm} km away` : ''}
                   </Text>
                 </View>
               </View>
@@ -152,7 +152,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                   </Text>
                 </View>
                 <Text style={[styles.priceTag, { color: currentTheme.textPrimary }]}>
-                  ${profile.room?.rentMonthly ?? profile.budgetMax}/mo split
+                  ₹{(profile.room?.rentMonthly ?? profile.budgetMax).toLocaleString('en-IN')}/mo split
                 </Text>
               </View>
             </View>
@@ -268,6 +268,17 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                     ]}
                   >
                     {formatHabitValue('smoking', profile.smokingPolicy)}
+                  </Text>
+                </View>
+
+                {/* Dietary Habit */}
+                <View style={[styles.tableRow, { borderBottomColor: currentTheme.border }]}>
+                  <Text style={[styles.rowLabel, { color: currentTheme.textSecondary, width: '38%' }]}>Dietary Habit</Text>
+                  <Text style={[styles.rowValue, { color: currentTheme.textPrimary, width: '31%' }]}>
+                    {currentUser.dietaryPref || 'Flexible'}
+                  </Text>
+                  <Text style={[styles.rowValue, { color: currentTheme.textPrimary, width: '31%' }]}>
+                    {profile.dietaryPref || 'Flexible'}
                   </Text>
                 </View>
 

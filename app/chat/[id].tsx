@@ -143,7 +143,7 @@ export default function ChatScreen() {
                 )}
               </View>
               <Text style={[styles.partnerSub, { color: currentTheme.textMuted }]}>
-                ${partner.room?.rentMonthly ?? partner.budgetMax}/mo split • {partner.locationName}
+                ₹{(partner.room?.rentMonthly ?? partner.budgetMax).toLocaleString('en-IN')}/mo split • {partner.locationName}
               </Text>
             </View>
           </View>

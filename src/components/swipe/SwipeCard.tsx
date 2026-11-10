@@ -228,7 +228,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
               <View style={[styles.splitChip, { backgroundColor: currentTheme.accent }]}>
                 <Text style={styles.splitChipText}>
-                  ${profile.room?.rentMonthly ?? profile.budgetMax}/mo split
+                  ₹{(profile.room?.rentMonthly ?? profile.budgetMax).toLocaleString('en-IN')}/mo split
                 </Text>
               </View>
             </View>
@@ -239,7 +239,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
                 <MapPin size={13} color="rgba(255,255,255,0.85)" />
                 <Text style={styles.locationString}>
                   {profile.locationName}
-                  {profile.distanceMiles !== undefined ? ` • ${profile.distanceMiles} mi away` : ''}
+                  {profile.distanceKm !== undefined ? ` • ${profile.distanceKm} km away` : (profile.distanceMiles !== undefined ? ` • ${profile.distanceMiles} mi away` : '')}
                 </Text>
               </View>
 

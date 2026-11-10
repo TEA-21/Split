@@ -26,14 +26,13 @@ export const FilterModal: React.FC = () => {
 
   const [localFilters, setLocalFilters] = useState<SearchFilters>({ ...filters });
 
-  const radiusOptions = [5, 10, 15, 25, 50];
+  const RADIUS_PRESETS = [3, 5, 10, 15, 25, 40];
   const cleanlinessOptions = [1, 2, 3, 4, 5];
-  const budgetPresets = [
-    { label: '< $1,000', min: 0, max: 1000 },
-    { label: '$1,000 - $1,500', min: 1000, max: 1500 },
-    { label: '$1,500 - $2,000', min: 1500, max: 2000 },
-    { label: '$2,000+', min: 2000, max: 9999 },
-    { label: 'Any Budget', min: 0, max: 9999 },
+  const BUDGET_PRESETS = [
+    { label: '< ₹10,000', min: 0, max: 10000 },
+    { label: '₹10k - ₹20k', min: 10000, max: 20000 },
+    { label: '₹20k - ₹35k', min: 20000, max: 35000 },
+    { label: '₹35k+', min: 35000, max: 100000 },
   ];
 
   const handleApply = () => {
@@ -44,9 +43,10 @@ export const FilterModal: React.FC = () => {
   const handleReset = () => {
     const defaultFilters: Partial<SearchFilters> = {
       userMode: 'all',
-      budgetMin: 500,
-      budgetMax: 2500,
-      radiusMiles: 25,
+      budgetMin: 10000,
+      budgetMax: 35000,
+      radiusKm: 25,
+      radiusMiles: 15,
       cleanlinessMin: 1,
       petFriendlyOnly: false,
       nonSmokerOnly: false,
@@ -124,13 +124,13 @@ export const FilterModal: React.FC = () => {
             <View style={styles.rowBetween}>
               <Text style={[styles.sectionTitle, { color: currentTheme.textPrimary }]}>Maximum Distance</Text>
               <Text style={[styles.valueHighlight, { color: currentTheme.accent }]}>
-                {localFilters.radiusMiles} miles
+                {localFilters.radiusKm ?? 25} km
               </Text>
             </View>
 
             <View style={styles.optionsRow}>
-              {radiusOptions.map((rad) => {
-                const isSelected = localFilters.radiusMiles === rad;
+              {RADIUS_PRESETS.map((rad) => {
+                const isSelected = (localFilters.radiusKm ?? 25) === rad;
                 return (
                   <TouchableOpacity
                     key={rad}
@@ -141,7 +141,7 @@ export const FilterModal: React.FC = () => {
                         borderColor: isSelected ? currentTheme.accent : currentTheme.border,
                       },
                     ]}
-                    onPress={() => setLocalFilters({ ...localFilters, radiusMiles: rad })}
+                    onPress={() => setLocalFilters({ ...localFilters, radiusKm: rad })}
                     activeOpacity={0.8}
                   >
                     <Text
@@ -150,7 +150,7 @@ export const FilterModal: React.FC = () => {
                         { color: isSelected ? '#FFFFFF' : currentTheme.textPrimary },
                       ]}
                     >
-                      {rad} mi
+                      {rad} km
                     </Text>
                   </TouchableOpacity>
                 );
@@ -163,12 +163,12 @@ export const FilterModal: React.FC = () => {
             <View style={styles.rowBetween}>
               <Text style={[styles.sectionTitle, { color: currentTheme.textPrimary }]}>Monthly Rent Split</Text>
               <Text style={[styles.valueHighlight, { color: currentTheme.accent }]}>
-                ${localFilters.budgetMin} - ${localFilters.budgetMax === 9999 ? 'Any' : localFilters.budgetMax}
+                ₹{(localFilters.budgetMin || 0).toLocaleString('en-IN')} - {localFilters.budgetMax >= 100000 ? 'Any' : `₹${(localFilters.budgetMax || 0).toLocaleString('en-IN')}`}
               </Text>
             </View>
 
             <View style={styles.presetsGrid}>
-              {budgetPresets.map((preset) => {
+              {BUDGET_PRESETS.map((preset) => {
                 const isSelected =
                   localFilters.budgetMin === preset.min && localFilters.budgetMax === preset.max;
                 return (

@@ -39,7 +39,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onOpenReportModal }) => {
   };
 
   const handleExpandRadius = () => {
-    setFilters({ radiusMiles: 50 });
+    setFilters({ radiusKm: 40 });
   };
 
   const handleOpenFilters = () => {

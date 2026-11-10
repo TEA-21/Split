@@ -85,7 +85,7 @@ export const MatchCelebrationModal: React.FC = () => {
               Estimated Split Target
             </Text>
             <Text style={[styles.splitBannerValue, { color: currentTheme.accent }]}>
-              ${matchedUser.room?.rentMonthly ?? matchedUser.budgetMax}/mo split
+              ₹{(matchedUser.room?.rentMonthly ?? matchedUser.budgetMax).toLocaleString('en-IN')}/mo split
             </Text>
           </View>
 

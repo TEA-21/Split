@@ -88,24 +88,24 @@ export const RoomEditor: React.FC<RoomEditorProps> = ({ room, onChange }) => {
       {/* Financials Row */}
       <View style={styles.row}>
         <View style={[styles.fieldGroup, { flex: 1 }]}>
-          <Text style={[styles.fieldLabel, { color: currentTheme.textSecondary }]}>Monthly Rent ($)</Text>
+          <Text style={[styles.fieldLabel, { color: currentTheme.textSecondary }]}>Monthly Rent (₹)</Text>
           <TextInput
             style={[styles.input, { backgroundColor: currentTheme.surface, color: currentTheme.textPrimary, borderColor: currentTheme.border }]}
             value={room.rentMonthly ? String(room.rentMonthly) : ''}
             onChangeText={(val) => onChange({ ...room, rentMonthly: parseInt(val, 10) || 0 })}
-            placeholder="1200"
+            placeholder="15000"
             placeholderTextColor={currentTheme.textMuted}
             keyboardType="numeric"
           />
         </View>
 
         <View style={[styles.fieldGroup, { flex: 1 }]}>
-          <Text style={[styles.fieldLabel, { color: currentTheme.textSecondary }]}>Security Deposit ($)</Text>
+          <Text style={[styles.fieldLabel, { color: currentTheme.textSecondary }]}>Security Deposit (₹)</Text>
           <TextInput
             style={[styles.input, { backgroundColor: currentTheme.surface, color: currentTheme.textPrimary, borderColor: currentTheme.border }]}
             value={room.deposit ? String(room.deposit) : ''}
             onChangeText={(val) => onChange({ ...room, deposit: parseInt(val, 10) || 0 })}
-            placeholder="1200"
+            placeholder="30000"
             placeholderTextColor={currentTheme.textMuted}
             keyboardType="numeric"
           />
